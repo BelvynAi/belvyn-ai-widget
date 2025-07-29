@@ -2,7 +2,7 @@
   // Prevent multiple initializations
   if (window.BelvynChat) return
 
-  const WIDGET_URL = window.location.origin + "/widget"
+  const WIDGET_URL = "https://belvyn-ai-widget.vercel.app/widget"
 
   // Create the floating button
   function createFloatingButton() {
