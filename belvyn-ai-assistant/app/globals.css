@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-0: #0b0b10;
+  --bg-1: #111116;
+  --text-0: #ededf1;
+  --text-1: #c9c9d1;
+  --text-2: #8b8b95;
+  --brand: #4316b8;
+  --brand-2: #5a2bc7;
+  --user: #2a2a33;
+  --assistant: #4015b1;
+  --border: #26262d;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .bg-belvyn-0 {
+    background-color: var(--bg-0);
+  }
+  .bg-belvyn-1 {
+    background-color: var(--bg-1);
+  }
+  .text-belvyn-0 {
+    color: var(--text-0);
+  }
+  .text-belvyn-1 {
+    color: var(--text-1);
+  }
+  .text-belvyn-2 {
+    color: var(--text-2);
+  }
+  .bg-brand {
+    background-color: var(--brand);
+  }
+  .bg-brand-2 {
+    background-color: var(--brand-2);
+  }
+  .bg-user {
+    background-color: var(--user);
+  }
+  .bg-assistant {
+    background-color: var(--assistant);
+  }
+  .border-belvyn {
+    border-color: var(--border);
+  }
+
+  .belvyn-glow {
+    box-shadow: 0 0 20px rgba(67, 22, 184, 0.3);
+  }
+
+  .belvyn-shadow {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+  }
+}
