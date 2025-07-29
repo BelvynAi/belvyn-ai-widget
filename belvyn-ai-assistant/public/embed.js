@@ -101,6 +101,34 @@
 
     widget.appendChild(iframe)
 
+    // Prevent scroll propagation from widget
+    widget.addEventListener(
+      "wheel",
+      (e) => {
+        e.stopPropagation()
+        e.preventDefault()
+      },
+      { passive: false },
+    )
+
+    widget.addEventListener(
+      "touchmove",
+      (e) => {
+        e.stopPropagation()
+        e.preventDefault()
+      },
+      { passive: false },
+    )
+
+    // Also prevent scroll on the iframe
+    iframe.addEventListener(
+      "wheel",
+      (e) => {
+        e.stopPropagation()
+      },
+      { passive: false },
+    )
+
     // Listen for close messages from iframe
     window.addEventListener("message", (event) => {
       if (event.data.type === "CLOSE_BELVYN_CHAT") {
