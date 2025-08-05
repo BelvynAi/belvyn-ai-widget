@@ -106,20 +106,23 @@ export default function BelvynWidget() {
     }
   }, [messages])
 
-  // Auto-scroll to bottom
-  const scrollToBottom = useCallback(() => {
+  // Auto-scroll to bottom - improved version
+  const scrollToBottom = useCallback((force = false) => {
     if (messagesEndRef.current && transcriptRef.current) {
       const transcript = transcriptRef.current
-      const isNearBottom = transcript.scrollTop + transcript.clientHeight >= transcript.scrollHeight - 100
+      const isNearBottom = transcript.scrollTop + transcript.clientHeight >= transcript.scrollHeight - 150
 
-      if (isNearBottom) {
-        messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+      // Always scroll when force is true, or when user is near bottom
+      if (force || isNearBottom) {
+        setTimeout(() => {
+          messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+        }, 100)
       }
     }
   }, [])
 
   useEffect(() => {
-    scrollToBottom()
+    scrollToBottom(true) // Force scroll on new messages
   }, [messages, scrollToBottom])
 
   // Prevent scroll propagation
@@ -172,6 +175,7 @@ export default function BelvynWidget() {
     }
 
     setMessages((prev) => [...prev, userMessage])
+    setTimeout(() => scrollToBottom(true), 50) // Force scroll after user message
     setInput("")
     setIsLoading(true)
     setError(null)
@@ -214,6 +218,7 @@ export default function BelvynWidget() {
       }
 
       setMessages((prev) => [...prev, assistantMessage])
+      setTimeout(() => scrollToBottom(true), 50) // Force scroll after assistant message
     } catch (err) {
       console.error("Error sending message:", err)
       setError(err instanceof Error ? err.message : "Failed to send message")
@@ -295,7 +300,7 @@ export default function BelvynWidget() {
       {/* Messages */}
       <div
         ref={transcriptRef}
-        className="flex-1 overflow-y-auto p-4 space-y-4 pb-28"
+        className="flex-1 overflow-y-auto p-4 space-y-4 pb-36"
         style={{
           overscrollBehavior: "contain",
           WebkitOverflowScrolling: "touch",
